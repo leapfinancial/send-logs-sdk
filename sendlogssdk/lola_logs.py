@@ -1,9 +1,8 @@
 import logging.handlers
 import colorlog
 from multiprocessing import Queue
-from pub_sub_handler import PubSubHandler
-
-from lola_logs_settings import LolaLogsSettings
+from .pub_sub_handler import PubSubHandler
+from .lola_logs_settings import LolaLogsSettings
 
 class LolaLogs:            
     def __init__(self, GS:LolaLogsSettings = None):        
