@@ -8,7 +8,7 @@
             "name": "Python: Test send Logs",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/test_send_logs.py",
+            "program": "${workspaceFolder}/test/test_send_logs.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }
