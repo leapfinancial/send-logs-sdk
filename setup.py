@@ -14,7 +14,7 @@ setup(
     description='Esta libreria envia los logs a pub sub',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/tuusuario/sendlogssdk',  # URL del repositorio del proyecto
+    url='https://github.com/leapfinancial/send-logs-sdk.git@dev',  # URL del repositorio del proyecto
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
