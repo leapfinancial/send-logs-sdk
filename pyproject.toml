@@ -14,8 +14,8 @@ classifiers = [
 ]
 dependencies = [
     'google-cloud-pubsub >= 0.26.0',
-    'colorlog >= 21.0.0',
-    'pydantic >= 6.8.2', 
+    'colorlog >= 6.8.2',
+    'pydantic >= 2', 
 ]
 
 [build-system]
