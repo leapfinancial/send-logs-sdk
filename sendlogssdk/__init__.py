@@ -3,7 +3,3 @@
 from sendlogssdk.lola_logs import LolaLogs
 from sendlogssdk.lola_logs_settings import LolaLogsSettings
 from sendlogssdk.pub_sub_handler import PubSubHandler
-
-
-
-
