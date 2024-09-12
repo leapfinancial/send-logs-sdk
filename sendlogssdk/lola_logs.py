@@ -16,7 +16,7 @@ class LolaLogs:
         queue = Queue(-1)
         queue_handler = logging.handlers.QueueHandler(queue)           
         console_handler = self.create_console_handler()        
-        pubsub_handler = PubSubHandler(project_id=self._proyect_id, topic=self._topic_name, tags=tags, service_account_key=self.GS.service_account_key)
+        pubsub_handler = PubSubHandler(project_id=self._proyect_id, topic=self._topic_name, tags=tags, service_account_route=self.GS.service_account_route)
         logging.handlers.QueueListener(queue, console_handler, pubsub_handler).start()        
         
         # create logger

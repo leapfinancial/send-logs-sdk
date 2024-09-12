@@ -5,13 +5,15 @@ from google.oauth2 import service_account
 from google.cloud import pubsub_v1
 
 class PubSubHandler(Handler):
-    def __init__(self, project_id, topic, tags = None, service_account_key = None):
+    def __init__(self, project_id, topic, tags = None, service_account_route = None):
         super().__init__()
-        self.file = service_account_key.replace("\n", "\\n")
-        # credentials = service_account.Credentials.from_service_account_file(self.file)        
-        credentials = json.loads(self.file)
+        # self.file = service_account_key.replace("\n", "\\n")
+        # # credentials = service_account.Credentials.from_service_account_file(self.file)        
+        # credentials = json.loads(self.file)
+        # credentials = service_account.Credentials.from_service_account_info(credentials)
+        with open(service_account_route) as f:
+            credentials = json.load(f)
         credentials = service_account.Credentials.from_service_account_info(credentials)
-
 
         self.publisher = pubsub_v1.PublisherClient(credentials=credentials,
                                                    publisher_options=pubsub_v1.types.PublisherOptions(enable_message_ordering=True))
