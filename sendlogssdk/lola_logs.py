@@ -4,7 +4,7 @@ from multiprocessing import Queue
 from .pub_sub_handler import PubSubHandler
 from .lola_logs_settings import LolaLogsSettings
 
-class LolaLogs:            
+class LolaLogs(logging.Logger):            
     def __init__(self, GS:LolaLogsSettings = None):        
         self._logger_name = GS.logger_name
         self._proyect_id = GS.project_id
