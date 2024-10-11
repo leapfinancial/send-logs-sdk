@@ -23,17 +23,15 @@ class PubSubHandler(Handler):
     def emit(self, record):
         try:        
             log = record.msg
-            level = record.levelno
-            print(f"{record.created}")                        
+            level = record.levelno                                   
             ordering_key = f"{int(record.created * 1_000_000)}"
             print(f"ordering_key: {ordering_key}")
-            tags = {}
-            if self.tags:
-                tags = {**self.tags, 'level': level}
+            tags = {'level': level, **(self.tags or {})}
             if hasattr(record, 'tags'):
-                tags = {**tags, **record.tags, 'level': level}
-            else:
-                tags = {'level': level, **tags}
+                tags.update(record.tags)
+            if hasattr(tags, 'logger_name'):
+                tags['service_name'] = tags['logger_name']
+                del tags['logger_name']                
             tags = json.dumps(tags)
             print(f"tags: {tags}")
             future = self.publisher.publish(self.topic_path, log.encode("utf-8"),
