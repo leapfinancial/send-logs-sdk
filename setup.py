@@ -8,6 +8,7 @@ setup(
         'google-cloud-pubsub',
         'colorlog',
         'pydantic',
+        'packaging',
     ],
     author='Ruben Gonzalez',
     author_email='ruben@leapfinancial.com',
