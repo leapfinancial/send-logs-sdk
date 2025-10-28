@@ -10,6 +10,7 @@ class LolaLogs(logging.Logger):
         self._proyect_id = GS.project_id
         self._topic_name = GS.topic_name
         self.GS = GS
+        self._queue_listener = None  # Guardar referencia al QueueListener
         self.initialize_logs(GS=self.GS)        
     
     def initialize_logs(self, tags = None, GS = None) -> logging.Logger:        
@@ -17,7 +18,10 @@ class LolaLogs(logging.Logger):
         queue_handler = logging.handlers.QueueHandler(queue)           
         console_handler = self.create_console_handler()        
         pubsub_handler = PubSubHandler(project_id=self._proyect_id, topic=self._topic_name, tags=tags, service_account_route=self.GS.service_account_route)
-        logging.handlers.QueueListener(queue, console_handler, pubsub_handler).start()        
+        
+        # Crear y guardar referencia al QueueListener
+        self._queue_listener = logging.handlers.QueueListener(queue, console_handler, pubsub_handler)
+        self._queue_listener.start()        
         
         # create logger
         logger = logging.getLogger(self._logger_name)        
@@ -54,4 +58,19 @@ class LolaLogs(logging.Logger):
         for handler in logger.handlers:
             logger.removeHandler(handler)
         del logger
-        return self.initialize_logs(tags)        
+        return self.initialize_logs(tags)
+    
+    def stop(self):
+        """
+        Detiene el QueueListener de forma limpia para evitar excepciones al finalizar.
+        """
+        if self._queue_listener:
+            self._queue_listener.stop()
+            self._queue_listener = None
+            print("🔄 QueueListener detenido correctamente")
+    
+    def __del__(self):
+        """
+        Destructor para asegurar que el QueueListener se detenga al eliminar la instancia.
+        """
+        self.stop()        
